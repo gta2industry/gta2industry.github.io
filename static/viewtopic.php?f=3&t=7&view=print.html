@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru-ru" xml:lang="ru-ru">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="ru-ru" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="copyright" content="2000, 2002, 2005, 2007 phpBB Group" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="noindex" />
+
+<title>GTA2 Industry Forum &bull; Примеры скриптов</title>
+
+<link href="styles/reckless_red/theme/print.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="phpbb">
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+
+	<div id="page-header">
+		<h1>GTA2 Industry Forum</h1>
+		<p>Respect is everything<br /><a href="index.php.html">http://gta2industry.com/</a></p>
+
+		<h2>Примеры скриптов</h2>
+		<p><a href="forum/viewtopic.php%3Ff=3&amp;t=7.html">http://gta2industry.com/viewtopic.php?f=3&amp;t=7</a></p>
+	</div>
+
+	<div id="page-body">
+		<div class="page-number">Страница <strong>1</strong> из <strong>2</strong></div>
+		
+			<div class="post">
+				<h3>Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>24 дек 2011, 01:06</strong></div>
+				<div class="author"> <strong>Sage</strong></div>
+				<div class="content">Предлагаю размещать здесь те или иные примеры скриптов с комментариями, которые могут помочь при разработке карты любому картоделу. Итак, начну первым.<br /><br /><span style="font-size: 200%; line-height: 116%;"><span style="font-weight: bold">Телефонная будка</span></span><br />Это простой скрипт, который я взял из официального руководства, попробую объяснить что здесь происходит:<br /><br /><span style="color: #00BF00">OBJ_DATA testphone = (108.5 , 151.5 , 2.0 ) 0 phone</span>      // Создаем телефон как объект<br /><span style="color: #0080FF">PLAYER_PED player = ( 108.5 , 150.5 , 255.0 ) 0 1</span><br /><span style="color: #00BF00">COUNTER exit = 0</span>                                                          // Устанавливаем переменную exit = 0<br /><br /><span style="color: #0080FF">LEVELSTART</span><br /><span style="color: #00BF00">	ANSWER_PHONE ( player , testphone , 40 )</span>              // Заставляем телефон звонить 40 раз<br /><br /><span style="color: #0080FF">	WHILE_EXEC ( exit = 0 )</span>                                           // Пока exit = 0 крутится следующий скрипт<br /><span style="color: #0080FF">		IF ( CHECK_ANSWERED_PHONE ( testphone ) )</span>   // Проверяем - поднял ли игрок трубку<br /><span style="color: #00BF00">			DISPLAY_BRIEF ( 8012 )</span>	                       // Если поднял - выводим сообщение &quot;Молодец!&quot;<br /><span style="color: #00BF00">			STOP_PHONE ( testphone )</span>                        // Выключаем телефон<br /><span style="color: #00BF00">			SET exit = 1</span>  // Меняем значение переменной, чтобы цикл ожидания закрылся;<br /><span style="color: #0080FF">		ENDIF</span><br /><span style="color: #0080FF">		IF ( CHECK_FAIL_PHONE_TIMER ( testphone ) )</span>   // Проверяем, не вышло ли время<br /><span style="color: #00BF00">			DISPLAY_BRIEF ( 8013 )</span> 	          // Если вышло - сообщаем &quot;Плохи дела!&quot;<br /><span style="color: #00BF00">			STOP_PHONE ( testphone )</span>                         // Выключаем телефон<br /><span style="color: #00BF00"> 		SET exit = 1</span>  // Меняем значение переменной, чтобы цикл ожидания закрылся;<br /><span style="color: #0080FF">		ENDIF</span><br /><span style="color: #0080FF">	ENDWHILE</span><br /><span style="color: #0080FF">	LEVELEND</span><br /><br /><span style="font-size: 200%; line-height: 116%;"><span style="font-weight: bold">Getaway</span></span><br />Далее разбор скриптов к карте <span style="font-weight: bold">Gateway</span>. Пишет автор карты - PillBoX:<br /><br />При создании уровня нужно разложить его на несколько логически законечнных отрывков. Начало действия – действие – завершение действия. Начало: копы бегут к двери и открывают ее, напарник персонажа бьет одного из них, после чего начинается погром. Игрок убивает остальных копов и освобождает Марселлоса. Уоллеса, надо полагать. Итак, самым первым действием будет простое – копы бегут к двери. Началом этого скрипта служит сам старт игры. Персонажам дается характеристика определяющая их отношение к игроку и его напарнику, а так же задание – двигаться в некую точку. По прибытии в пункт назначения – опасная близость к напарнику героя – этот отрывок заканчивается и начинается следующий.<br /><br /><span style="color: #0080FF">//устанавливаем «банду»</span><br />SET_GANG_INFO (prisonersgang , 22 , ELECTRO_BATON , ELECTRO_BATON , ELECTRO_BATON , 0, 0.0 , 0.0 , 0.0 , 0, bug , 0 )<br /><br /><span style="color: #0080FF">//устанавливаем уровень разыскиваемости</span><br />DECLARE_POLICELEVEL (4)<br /><br /><span style="color: #0080FF">//устанавливаем зоны</span><br />MAP_ZONE prisoners1 = ( 0 , 0 , 0 , 0 , 250 , 0 , 0 , 0 , 1000 , 0 , 0)<br /><br /><span style="color: #0080FF">//координаты игрока</span><br />PLAYER_PED player = (98.0 , 96.0 , 2.0) 22 0<br /><br /><span style="color: #0080FF">//счетчики для внутриигровых событий</span><br />SAVED_COUNTER getaway=1<br />COUNTER world=1<br />COUNTER coppers=1<br /><br />//объекты, броня<br /><span style="color: #0080FF">OBJ_DATA armor1</span><br /><br /><span style="color: #0080FF">//стрелки</span><br />ARROW_DATA arrow1<br />ARROW_DATA arrow2<br /><br /><span style="color: #0080FF">//звуки</span><br />SOUND dooropen<br />SOUND alarm1<br />SOUND alarm2<br />SOUND alarm3<br />SOUND alarm4<br />SOUND haha<br /><br /><span style="color: #0080FF">//персонажи</span><br />CHAR_DATA cop1<br />CHAR_DATA cop2<br />CHAR_DATA cop3<br />CHAR_DATA cop4<br />CHAR_DATA cop5<br />CHAR_DATA cop6<br />CHAR_DATA cop7<br />CHAR_DATA cop8<br />CHAR_DATA cop9<br />CHAR_DATA cop10<br />CHAR_DATA cop11<br />CHAR_DATA cop12<br />CHAR_DATA cop13<br />CHAR_DATA cop14<br />CHAR_DATA tower1<br />CHAR_DATA tower2<br />CHAR_DATA tower3<br />CHAR_DATA tower4<br />CHAR_DATA tower5<br />CHAR_DATA tower6<br />CHAR_DATA tower7<br />CHAR_DATA tower8<br />CHAR_DATA tower9<br />CHAR_DATA tower10<br />CHAR_DATA tower11<br />CHAR_DATA friend1<br />CHAR_DATA friend2<br />CHAR_DATA marsellos<br />CHAR_DATA guard1<br />CHAR_DATA guard2<br />CHAR_DATA guard3<br />CHAR_DATA guard4<br /><br /><span style="color: #0080FF">//тачки</span><br />CAR_DATA car1<br />CAR_DATA car2<br />CAR_DATA car3<br />CAR_DATA car4<br />CAR_DATA car5<br />CAR_DATA car6<br />CAR_DATA truck1<br />CAR_DATA truck2<br />CAR_DATA swatcar1<br />CHAR_DATA guardcar1<br />CHAR_DATA guardcar2<br />CHAR_DATA guardcar3<br />CHAR_DATA guardcar4<br /><br /><span style="color: #0080FF">//начало</span><br />LEVELSTART<br /><br /><span style="color: #0080FF">//уровень освещенности по дефолту</span><br />SET_AMBIENT_LEVEL (0.2, 0)<br /><br /><span style="color: #0080FF">//расставляем персонажей и прописываем их ВНЕШНИЙ ВИД</span><br />marsellos = CREATE_CHAR (87.0, 103.0, 2.0) 22 0 criminal END<br />friend2 = CREATE_CHAR (98.0, 100.0, 2.0) 22 180 criminal END<br />friend1 = CREATE_CHAR (97.3, 96.1, 2.0) 22 180 dummy END<br />cop1 = CREATE_CHAR (92.5, 115.5, 2.0) 0 180 dummy END<br />cop2= CREATE_CHAR (93.5, 115.5, 2.0) 0 180 police END<br />cop14= CREATE_CHAR (93.5, 114.5, 2.0) 0 180 police END<br />cop3= CREATE_CHAR (100.5, 98.5, 2.0) 0 225 police END<br />cop4= CREATE_CHAR (94.5, 98.5, 2.0) 0 120 police END<br />cop5= CREATE_CHAR (91.5, 116.5, 2.0) 0 180 police END<br />cop6= CREATE_CHAR (93.5, 116.5, 2.0) 0 180 police END<br />cop7= CREATE_CHAR (83.5, 104.5, 2.0) 0 90 police END<br />cop8= CREATE_CHAR (83.5, 105.5, 2.0) 0 90 police END<br />cop9= CREATE_CHAR (81.3, 111.5, 2.0) 3 180 swat END<br />tower1 = CREATE_CHAR (76.5, 120.5, 7.0) 0 180 police END<br />tower2 = CREATE_CHAR (88.5, 122.5, 7.0) 0 180 police END<br />tower3 = CREATE_CHAR (76.5, 106.5, 7.0) 0 90 police END<br />tower4 = CREATE_CHAR (88.5, 132.5, 7.0) 0 270 police END<br />tower5 = CREATE_CHAR (96.5, 132.5, 7.0) 0 270 police END<br />tower6 = CREATE_CHAR (96.5, 127.5, 7.0) 0 225 police END<br />tower7 = CREATE_CHAR (106.5, 121.5, 7.0) 0 225 police END<br />tower8 = CREATE_CHAR (107.5, 108.5, 7.0) 0 270 police END<br />tower9 = CREATE_CHAR (104.5, 91.5, 7.0) 0 0 police END<br />tower10 = CREATE_CHAR (92.5, 91.5, 7.0) 0 0 police END<br />tower11 = CREATE_CHAR (77.5, 91.5, 7.0) 0 45 police END<br />cop10= CREATE_CHAR (83.0, 120.0, 2.0) 3 0 swat END<br />cop11= CREATE_CHAR (83.0, 120.5, 2.0) 3 0 swat END<br />//cop12= CREATE_CHAR (83.0, 121.5, 2.0) 3 0 swat END<br />//cop13= CREATE_CHAR (83.0, 119.5, 2.0) 3 0 swat END<br />guard1= CREATE_CHAR (89.8, 135.2, 2.0) 3 270 swat END<br /><br /><span style="color: #0080FF">//расставляем тачки и прописываем их тип</span><br />car1 = CREATE_CAR (87.9, 118.3, 2.0) 0 180 copcar END<br />car2 = CREATE_CAR (86.9, 118.3, 2.0) 7 180 edsel END<br />car3 = CREATE_CAR (85.9, 118.3, 2.0) 3 180 spider END<br />car4 = CREATE_CAR (84.9, 118.3, 2.0) 0 180 morris END<br />car5 = CREATE_CAR (83.9, 118.3, 2.0) 30 180 fiat END<br />car6 = CREATE_CAR (103.9, 111.3, 2.0) 0 180 copcar END<br />car6 = CREATE_CAR (104.9, 111.3, 2.0) 12 180 limo END<br />truck1 = CREATE_CAR (129.5, 92.5, 2.0) 7 95 jeep END<br />guardcar1 = CREATE_CAR (91.4, 135.3, 2.0) 0 0 SWATVAN END<br />guardcar2 = CREATE_CAR (91.4, 136.7, 2.0) 0 180 SWATVAN END<br />guardcar3 = CREATE_CAR (94.5, 122.7, 2.0) 0 188 SWATVAN END<br />guardcar4 = CREATE_CAR (94.5, 124.2, 2.0) 0 188 SWATVAN END<br />swatcar1 = CREATE_CAR (85.5, 121.5, 2.0) 0 210 SWATVAN END<br /><br /><span style="color: #0080FF">//раздаем оружие</span><br />GIVE_WEAPON (cop1 , shotgun)<br />GIVE_WEAPON (cop3 , pistol)<br />GIVE_WEAPON (cop4 , pistol)<br />GIVE_WEAPON (cop5 , pistol)<br />GIVE_WEAPON (cop6 , pistol)<br />GIVE_WEAPON (cop7 , pistol)<br />GIVE_WEAPON (cop8 , pistol)<br />GIVE_WEAPON (cop9 , machine_gun)<br />GIVE_WEAPON (cop10 , machine_gun)<br />GIVE_WEAPON (cop11 , machine_gun)<br />//GIVE_WEAPON (cop12 , machine_gun)<br />GIVE_WEAPON (cop14 , pistol)<br />GIVE_WEAPON (tower1 , molotov)<br />GIVE_WEAPON (tower2 , molotov)<br />GIVE_WEAPON (tower3 , molotov)<br />GIVE_WEAPON (tower4 , molotov)<br />GIVE_WEAPON (tower5 , molotov)<br />GIVE_WEAPON (tower6 , molotov)<br />GIVE_WEAPON (tower7 , molotov)<br />GIVE_WEAPON (tower8 , molotov)<br />GIVE_WEAPON (tower9 , molotov)<br />GIVE_WEAPON (tower10 , molotov)<br />GIVE_WEAPON (tower11 , molotov)<br />GIVE_WEAPON (guard1 , rocket_launcher)<br /><br /><span style="color: #0080FF">//ставим броню</span><br />armor1 = CREATE_OBJ ( 82.0 , 105.0, 2.0 ) 0 COLLECT_31 END<br /><br /><span style="color: #0080FF">//расставляем персонажам реакцию на выстрелы</span><br />SET_CHAR_THREAT_REACTION ( cop1 , NO_REACTION )<br />SET_CHAR_THREAT_REACTION ( cop2 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop3 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop4 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop5 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop6 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop7 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop8 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop9 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( cop14 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( friend1 , NO_REACTION )<br />SET_CHAR_THREAT_REACTION ( friend2 , NO_REACTION )<br />SET_CHAR_THREAT_REACTION ( marsellos , NO_REACTION )<br />SET_CHAR_THREAT_REACTION ( tower1 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower2 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower3 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower4 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower5 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower6 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower7 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower8 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower9 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower10 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( tower11 , REACT_AS_NORMAL )<br />SET_CHAR_THREAT_REACTION ( guard1 , REACT_AS_NORMAL )<br /><br /><span style="color: #0080FF">//СУТЬ СКРИПТА. Показать игроку сообщения и заставить 3 полицейских<br />//идти в конкретную зону.<br />//скрипт: (до тех пор пока счетчик гетавай=1, покажи мессагу из r.gxt<br />//под номером 1019 и сообщение 1020, потом дай задание трем персонажам<br />//»идти в нужную зону», и если персонаж коп2 придет в нужную зону,<br />//переведи счетчик гетавай в положение 2)<br /></span>WHILE (getaway=1)<br />DISPLAY_MESSAGE (1019)<br />DISPLAY_BRIEF (1020)<br />SET_CHAR_OBJECTIVE (cop1, GOTO_AREA_ON_FOOT, 97.5, 98.1, 2.0)<br />SET_CHAR_OBJECTIVE (cop2, GOTO_AREA_ON_FOOT, 97.5, 97.5, 2.0)<br />SET_CHAR_OBJECTIVE (cop14, GOTO_AREA_ON_FOOT, 94.0, 97.5, 2.0)<br />IF (LOCATE_CHARACTER_ON_FOOT ( cop2 , 97.5 , 97.5, 2.0, 1.0, 1.0))<br />set getaway=2<br />ENDIF<br />ENDWHILE<br /><br /><span style="color: #0080FF">//СУТЬ СКРИПТА: Показать игроку новое сообщение, открыть клетку<br />//игрока, заставить одного копа убить игрока, а другого – убить этого<br />//копа, остальные пусть стоят на месте<br />//срипт: (до тех пор пока гетавай=2, убери все сообщения с экрана,<br />//покажи сообщение 1022, потом открой дверь и убери из игры нужный блок<br />//(открой клетку то есть), потом дай задание персонажам, выведи стрелку<br />//на полицейского, и переведи счетчик в положение 3)<br /></span>WHILE (getaway=2)<br />CLEAR_ALL_BRIEFS ( )<br />DISPLAY_BRIEF (1022)<br />dooropen = CREATE_SOUND ( 98.0 , 97.1 , 2.0 ) GARAGE_OPEN play_instant END<br />REMOVE_BLOCK ( 97 , 97 , 2 , DONT_DROP )<br />SET_CHAR_OBJECTIVE (cop2, kill_char_any_means, player)<br />SET_CHAR_OBJECTIVE (cop1, WAIT_ON_FOOT)<br />SET_CHAR_OBJECTIVE (cop14, WAIT_ON_FOOT)<br />SET_CHAR_OBJECTIVE (friend1, kill_char_any_means, cop2)<br />POINT_ARROW_AT (arrow1, cop2)<br />set getaway=3<br />ENDWHILE<br /><br /><span style="color: #0080FF">//СУТЬ СКРИПТА: если полицейского ударил персонаж friend1, заставить<br />//перевести всех остальных копов в «преступников», и заставить их<br />//следовать за игроком, раздать им оружие и организовать сирену<br />//скрипт: (пока счетчик гетавай=3, если персонажа коп-2 ударил<br />//персонаж фриенд-1, очисти все сообщения с экрана и покажи сообщение<br />//1021, потом измени тип персонажей, добавь группу персонажей к игроку<br />//чтобы они за ним следовали, потом добавь в эту группу персонажей,<br />//раздай им оружие, создай 4 звука тревоги, убери старую стрелку и<br />//поставь новую, измени уровень полиции на 4, и переведи счетчик на 4)<br /></span>WHILE (getaway =3 )<br />IF (CHECK_CHAR_BEEN_PUNCHED_BY ( cop2 , friend1))<br />CLEAR_ALL_BRIEFS ( )<br />DISPLAY_BRIEF (1021)<br />SET_CHAR_OCCUPATION ( friend1 , criminal )<br />SET_CHAR_OCCUPATION ( cop1 , criminal )<br />ADD_GROUP_TO_CHARACTER (player, 0)<br />ADD_EXISTING_CHAR_TO_GROUP ( player, friend1 )<br />ADD_EXISTING_CHAR_TO_GROUP ( player, cop1 )<br />GIVE_WEAPON (friend1, shotgun)<br />GIVE_WEAPON (player, shotgun)<br />alarm1 = CREATE_SOUND ( 92.5 , 97.5 , 2.0 ) PRISON_alarm play_forever END<br />alarm2 = CREATE_SOUND ( 92.5 , 111.5 , 2.0 ) PRISON_alarm play_forever END<br />alarm3 = CREATE_SOUND ( 92.5 , 123.5 , 2.0 ) PRISON_alarm play_forever END<br />alarm4 = CREATE_SOUND ( 83.5 , 119.5 , 2.0 ) PRISON_alarm play_forever END<br />remove_arrow (arrow2)<br />point_arrow_at (arrow1, 98.0, 99.0, 2.0)<br />ALTER_WANTED_LEVEL ( player , 4 )<br />set getaway=4<br />ENDIF<br />ENDWHILE<br /><br /><span style="color: #0080FF">//СУТЬ СКРИПТА: сымитировать расстрел игроком замка клетки Марселлоса,<br />после чего открыть ему клетку и присоединить Марселлоса к группе<br />игрока, и дать ему пистолет<br />//скрипт: (пока счетчик гетавай=4, если персонаж стреляет в зоне<br />//такой-то, убери все сообщения, покажи сообщение 1023, убери блок<br />//такой-то, открой дверь, создай звук хохота, добавь персонажа в группу,<br />//дай ему оружие, переведи стрелку на новый объект)<br /></span>WHILE (getaway=4)<br />IF (IS_CHAR_FIRING_IN_AREA ( player , 98.0 , 98.8 , 2.0 , 0.5 , 0.5 ))<br />CLEAR_ALL_BRIEFS ( )<br />DISPLAY_BRIEF (1023)<br />REMOVE_BLOCK (97, 98, 2, DONT_DROP)<br />dooropen = CREATE_SOUND ( 98.0 , 98.8 , 2.0 ) GARAGE_OPEN play_instant END<br />haha = CREATE_SOUND ( 98.0 , 98.8 , 2.0 ) SMUG_LAUGH play_instant END<br />ADD_EXISTING_CHAR_TO_GROUP ( player, friend2 )<br />GIVE_WEAPON (friend2 , pistol)<br />point_arrow_at (arrow1, 91.0, 105.0, 2.0)<br />set getaway=5<br />ENDIF<br />ENDWHILE<br /><br />……………………..<br />……………………..<br />……………………..<br /><br /><span style="color: #0080FF">//конец скрипта</span><br />LEVELEND</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Ваши примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>24 дек 2011, 20:02</strong></div>
+				<div class="author"> <strong>Andrey_M</strong></div>
+				<div class="content">Ага, спасибо за разборы телефонов<br />В принципе не знал как их делать...<br />А телефонные задания как делать? В оригинальной игре они сложены в папочки для каждого района. Нельзя ли сделать так же при большом кол-ве заданий?</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>04 янв 2012, 01:27</strong></div>
+				<div class="author"> <strong>Zm3ika</strong></div>
+				<div class="content">хорошая информация по скриптам <!-- m --><a class="postlink" href="http://en.wikigta.org/wiki/Modding_Tutorial_%28GTA2%29#Scripting">http://en.wikigta.org/wiki/Modding_Tuto ... #Scripting</a><!-- m --><br /><br />остается лишь перевести в понятный язык = )</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>04 янв 2012, 10:06</strong></div>
+				<div class="author"> <strong>Sage</strong></div>
+				<div class="content"><blockquote><div><cite>Zm3ika писал(а):</cite>хорошая информация по скриптам <!-- m --><a class="postlink" href="http://en.wikigta.org/wiki/Modding_Tutorial_%28GTA2%29#Scripting">http://en.wikigta.org/wiki/Modding_Tuto ... #Scripting</a><!-- m --><br /><br />остается лишь перевести в понятный язык = )</div></blockquote><br /><br />А ведь действительно хорошая!</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>11 янв 2012, 09:00</strong></div>
+				<div class="author"> <strong>Web</strong></div>
+				<div class="content">Почитал информацию на сайте и пришел к выводу, что как только закончится сессия и появится свободное время на работе - займусь возрождением своей карты. Могу кста сделать перевод на &quot;понятный&quot; язык, ну тоже конечно же после сессии.</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>13 фев 2012, 22:16</strong></div>
+				<div class="author"> <strong>Andrey_M</strong></div>
+				<div class="content">Sage, а в первом твоём примере как сделать, чтобы телефон бесконечно раз звонил?</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>14 фев 2012, 13:06</strong></div>
+				<div class="author"> <strong>Sage</strong></div>
+				<div class="content">Ух не подскажу...</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>14 фев 2012, 21:32</strong></div>
+				<div class="author"> <strong>Andrey_M</strong></div>
+				<div class="content">Sage, в оригинальной гта2 телефоны звонили бесконечно раз, это как триггеры. Просто в твоём примере он звонит по таймеру с определённым временем.</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>14 фев 2012, 21:52</strong></div>
+				<div class="author"> <strong>Sage</strong></div>
+				<div class="content">Это не мой пример, это пример из руководства ) Я его разобрал.<br /><br />Твой пример - смотри например исходники питера или третьего района</div>
+			</div>
+			<hr />
+		
+			<div class="post">
+				<h3>Re: Примеры скриптов</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>14 фев 2012, 21:57</strong></div>
+				<div class="author"> <strong>Andrey_M</strong></div>
+				<div class="content">А где исходники питера найти?</div>
+			</div>
+			<hr />
+		
+	</div>
+
+<!--
+	We request you retain the full copyright notice below including the link to www.phpbb.com.
+	This not only gives respect to the large amount of time given freely by the developers
+	but also helps build interest, traffic and use of phpBB3. If you (honestly) cannot retain
+	the full copyright we ask you at least leave in place the "Powered by phpBB" line, with
+	"phpBB" linked to www.phpbb.com. If you refuse to include even this then support on our
+	forums may be affected.
+
+	The phpBB Group : 2006
+//-->
+	<div id="page-footer">
+		<div class="page-number">Часовой пояс: UTC + 3 часа [ Летнее время ]<br />Страница <strong>1</strong> из <strong>2</strong></div>
+		<div class="copyright">Powered by phpBB &copy; 2000, 2002, 2005, 2007 phpBB Group<br />http://www.phpbb.com/</div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru-ru" xml:lang="ru-ru">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="ru-ru" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="copyright" content="2000, 2002, 2005, 2007 phpBB Group" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="noindex" />
+
+<title>GTA2 Industry Forum &bull; Проброс портов GTA2 и LogeMeIn Hamachi2 через роутер</title>
+
+<link href="styles/reckless_red/theme/print.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="phpbb">
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+
+	<div id="page-header">
+		<h1>GTA2 Industry Forum</h1>
+		<p>Respect is everything<br /><a href="index.php.html">http://gta2industry.com/</a></p>
+
+		<h2>Проброс портов GTA2 и LogeMeIn Hamachi2 через роутер</h2>
+		<p><a href="forum/viewtopic.php%3Ff=5&amp;t=28.html">http://gta2industry.com/viewtopic.php?f=5&amp;t=28</a></p>
+	</div>
+
+	<div id="page-body">
+		<div class="page-number">Страница <strong>1</strong> из <strong>1</strong></div>
+		
+			<div class="post">
+				<h3>Проброс портов GTA2 и LogeMeIn Hamachi2 через роутер</h3>
+				<div class="date"><img src="styles/reckless_red/imageset/icon_post_target.gif" width="11" height="9" alt="Сообщение" title="Сообщение" />Добавлено: <strong>17 янв 2012, 23:21</strong></div>
+				<div class="author"> <strong>Sage</strong></div>
+				<div class="content"><span style="color: #FF8000"><span style="font-weight: bold"><div style="text-align:center;"><span style="font-size: 150%; line-height: 116%;">Проброс портов GTA2 и LogeMeIn Hamachi2 через роутер</span></div></span></span><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/0.jpg" alt="Изображение" /></div><br />Эта инструкция актуальна для тех, у кого есть статический IP, но он теряется на домашнем роутере. Если вы не знаете какой у вас IP - скорее всего он динамический, т.к. статический обычно является включаемой опцией интернет-провайдера и оплачивается отдельно. Настраиваем проброску портов GTA2 (чтобы играть напрямую) и LogMeIn Hamachi2 (чтобы со всеми всегда иметь прямой туннель). В качестве примера разбора взят популярный wi-fi роутер DLink DIR-300. Большинство роутеров марки DLink имеют идентичную настройку. Другие роутеры и их подробную настройку под конкретные игры и программы можно найти на сайте <a href="http://portforward.com/english/routers/port_forwarding/routerindex.htm" class="postlink">Pordforward.com</a>.<br /><br />Для начала откроем страницу настроек роутера. Введите в браузере адрес 192.168.0.1 (если вы его не меняли - то он именно такой).<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/2.jpg" alt="Изображение" /></div><br /><br />Если вы не устанавливали пароль, по-умолчанию для авторизации достаточно ввести логин admin без пароля.<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/3.jpg" alt="Изображение" /></div><br /><br />Откройте раздел <span style="font-weight: bold">ADVANCED</span> / <span style="font-weight: bold">Port Forwarding</span>.<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/4.jpg" alt="Изображение" /></div><br /><br />Создаем два правила. Игра использует диапазон TCP/UDP <span style="font-weight: bold">2300-2400</span> портов и TCP/UDP порт <span style="font-weight: bold">47624</span>. Настройте правила как указано на рисунке. IP-адрес при выборе вашего компьютера из списка подставляется автоматически - он нужен чтобы роутер знал - кому отправлять пакеты пришедшие на этот порт.<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/5.jpg" alt="Изображение" /></div><br /><br />Для LogMeIn Hamachi2 требуется создать три правила, для портов <span style="font-weight: bold">12975</span>, <span style="font-weight: bold">17771</span> и <span style="font-weight: bold">32976</span>, сделайте это как указано на рисунке. Настройку портов для первой версии Hamachi можно посмотреть <a href="http://portforward.com/english/routers/port_forwarding/Dlink/DIR-300/Hamachi.htm" class="postlink">здесь</a>.<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/6.jpg" alt="Изображение" /></div><br /><br />Еще раз проверяем введенные настройки, галочки, сохраняем.<br /><br /><div style="text-align:center;"><img src="http://gta2industry.com/wp-content/uploads/2012/01/7.jpg" alt="Изображение" /></div><br /><br />Далее делаем проверку портов. Создаем игру, вводим <a href="http://2ip.ru/check-port/" class="postlink">здесь</a> порт 2300. Если получаем ответ &quot;Порт открыт&quot; - значит у вас действительно статический адрес и вы все правильно настроили - никаких преград для игры через роутер уже не будет.<br /><br />Дополнительно к этому, хочу обратить внимание на материалы, которые могут помочь вам снизить пинг. В некоторых случаях - существенно.<br />1. <a href="http://sonikelf.ru/kak-snizit-ping-leatrix-latency-fix/" class="postlink">Как снизить (оптимизировать) пинг [Leatrix Latency Fix]</a> (sonikelf.ru)<br />2. <a href="http://forums.goha.ru/showthread.php?t=207520" class="postlink">Оптимизация игры - уменьшение пинга. Новый метод.</a> (forums.goha.ru)<br />3. <a href="http://counter-strike.cn.ua/forum/index.php?showtopic=1003" class="postlink">Оптимизация пинга в Counter-Strike и других играх в операционной системе Windows 7</a> (counter-strike.cn.ua/forum)</div>
+			</div>
+			<hr />
+		
+	</div>
+
+<!--
+	We request you retain the full copyright notice below including the link to www.phpbb.com.
+	This not only gives respect to the large amount of time given freely by the developers
+	but also helps build interest, traffic and use of phpBB3. If you (honestly) cannot retain
+	the full copyright we ask you at least leave in place the "Powered by phpBB" line, with
+	"phpBB" linked to www.phpbb.com. If you refuse to include even this then support on our
+	forums may be affected.
+
+	The phpBB Group : 2006
+//-->
+	<div id="page-footer">
+		<div class="page-number">Часовой пояс: UTC + 3 часа [ Летнее время ]<br />Страница <strong>1</strong> из <strong>1</strong></div>
+		<div class="copyright">Powered by phpBB &copy; 2000, 2002, 2005, 2007 phpBB Group<br />http://www.phpbb.com/</div>
+	</div>
+</div>
+
+</body>
+</html>

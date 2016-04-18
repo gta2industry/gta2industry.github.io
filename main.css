@@ -1,0 +1,27 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5; /*#fdf6e3;*/
+    color: #586e75;
+}
+
+h2 {
+    text-align: center;
+}
+
+a {
+    color: #D15E4D;
+}
+
+.button {
+    background-color: #D15E4D;
+    color: #f5f5f5;
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+}
+
+.footer {
+    text-align: center;
+}
